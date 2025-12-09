@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Optimization -->
+    <title>Dark Mode Typing Pad with White Text | Character & Word Counter</title>
+    <meta name="description" content="A simple, distraction-free online typing pad featuring a dark mode interface and white text for high contrast. Includes real-time word and character counting.">
+    <meta name="keywords" content="typing pad, dark mode, white text, character counter, word counter, distraction free writing, online notepad, writer tool">
+    <meta name="author" content="Gemini AI">
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar for aesthetics */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background: #2d3748; /* Dark track */
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background: #4a5568; /* Slightly lighter thumb */
+            border-radius: 4px;
+        }
+        textarea::-webkit-scrollbar-thumb:hover {
+            background: #718096;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 min-h-screen p-4 flex flex-col items-center justify-center font-sans">
+
+    <!-- Main Container -->
+    <div class="w-full max-w-4xl bg-gray-800 p-6 rounded-xl shadow-2xl border border-gray-700">
+        
+        <header class="mb-6 text-center">
+            <h1 class="text-3xl font-extrabold text-white mb-2">Dark Mode Typing Pad</h1>
+            <p class="text-gray-400">Start typing below. The text color is white as requested.</p>
+        </header>
+
+        <!-- Typing Area -->
+        <textarea
+            id="typingArea"
+            class="w-full h-96 p-4 text-white text-lg bg-gray-900 border border-gray-700 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 resize-none outline-none shadow-inner"
+            placeholder="Start typing here..."
+        ></textarea>
+
+        <!-- Status & Controls -->
+        <div class="mt-4 flex flex-col sm:flex-row justify-between items-center text-gray-400 text-sm">
+            <span id="wordCount" class="mb-2 sm:mb-0">Words: 0 | Characters: 0</span>
+            <button
+                onclick="clearText()"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-[1.01] shadow-md"
+            >
+                Clear Text
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const typingArea = document.getElementById('typingArea');
+        const wordCountDisplay = document.getElementById('wordCount');
+
+        // Function to update word and character count
+        function updateCounts() {
+            const text = typingArea.value;
+            const characterCount = text.length;
+
+            // Count words: split by whitespace and filter out empty strings
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            const wordCount = words.length;
+
+            wordCountDisplay.textContent = `Words: ${wordCount} | Characters: ${characterCount}`;
+        }
+
+        // Function to clear the textarea
+        function clearText() {
+            typingArea.value = '';
+            updateCounts();
+        }
+
+        // Attach event listener to update counts on input
+        typingArea.addEventListener('input', updateCounts);
+
+        // Initial count update on load
+        window.onload = updateCounts;
+    </script>
+</body>
+</html>
